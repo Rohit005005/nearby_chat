@@ -1,0 +1,31 @@
+{
+  "name": "metro-chat",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@noble/ciphers": "^2.4.0",
+    "@noble/curves": "^2.4.0",
+    "buffer": "^6.0.3",
+    "expo": "~57.0.22",
+    "expo-crypto": "^57.0.3",
+    "expo-dev-client": "~57.0.19",
+    "expo-status-bar": "~57.0.1",
+    "nativewind": "^4.2.7",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-ble-advertise": "^2.0.5",
+    "react-native-ble-plx": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "tailwindcss": "^3.3.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "private": true
+}
