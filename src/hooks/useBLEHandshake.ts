@@ -1,4 +1,3 @@
-// useBLEHandshake.ts
 import { BleManager, Device } from "react-native-ble-plx";
 import { x25519 } from "@noble/curves/ed25519.js";
 import { Buffer } from "buffer";
@@ -10,7 +9,7 @@ const HANDSHAKE_CHARACTERISTIC_UUID = "abcdefab-1234-1234-1234-1234567890ab";
 
 export const performHandshake = async (
   bleManager: BleManager,
-  deviceId: string
+  deviceId: string,
 ) => {
   try {
     console.log(`Connecting to device: ${deviceId}...`);
@@ -23,8 +22,7 @@ export const performHandshake = async (
     await device.discoverAllServicesAndCharacteristics();
 
     // 3. Generate MY ephemeral ECDH key pair for this specific encounter
-    const myPrivateKey = x25519.keygen();
-    const myPublicKey = x25519.getPublicKey(myPrivateKey);
+    const { secretKey: myPrivateKey, publicKey: myPublicKey } = x25519.keygen();
     const myPublicKeyBase64 = Buffer.from(myPublicKey).toString("base64");
 
     // 4. Swap Keys
@@ -33,14 +31,14 @@ export const performHandshake = async (
       device.id,
       METRO_CHAT_SERVICE_UUID,
       HANDSHAKE_CHARACTERISTIC_UUID,
-      myPublicKeyBase64
+      myPublicKeyBase64,
     );
 
     // Read THEIR public key from their device
     const characteristic = await bleManager.readCharacteristicForDevice(
       device.id,
       METRO_CHAT_SERVICE_UUID,
-      HANDSHAKE_CHARACTERISTIC_UUID
+      HANDSHAKE_CHARACTERISTIC_UUID,
     );
 
     if (!characteristic.value) {
@@ -48,13 +46,16 @@ export const performHandshake = async (
     }
 
     const peerPublicKeyBytes = Uint8Array.from(
-      Buffer.from(characteristic.value, "base64")
+      Buffer.from(characteristic.value, "base64"),
     );
 
     // 5. Derive the Shared Secret
     // This function combines MY private key and THEIR public key.
     // The peer is doing the exact same thing on their side. Both result in the exact same 32-byte secret.
-    const sharedSecret = x25519.getSharedSecret(myPrivateKey, peerPublicKeyBytes);
+    const sharedSecret = x25519.getSharedSecret(
+      myPrivateKey,
+      peerPublicKeyBytes,
+    );
 
     // Convert to a hex string to store in your local SQLite DB
     const sharedSecretHex = Buffer.from(sharedSecret).toString("hex");
@@ -63,9 +64,8 @@ export const performHandshake = async (
     return {
       success: true,
       sharedSecret: sharedSecretHex,
-      device
+      device,
     };
-
   } catch (error) {
     console.error("Handshake failed:", error);
     return { success: false, error };

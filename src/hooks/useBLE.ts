@@ -3,14 +3,12 @@ import { BleManager } from "react-native-ble-plx";
 import { PermissionsAndroid, Platform } from "react-native";
 import { eq } from "drizzle-orm";
 
-import { localDb } from "./db/client";
-import { localTopics, localEncounters } from "./db/schema";
-import {
-  parseManufacturerData,
-  DiscoveredPeerPayload,
-} from "./blePayloadParser";
+import { localTopics } from "../db/schema";
 
-const bleManager = new BleManager();
+import { localDb } from "../db/client";
+import { DiscoveredPeerPayload, parseManufacturerData } from "../lib/blePayloadParser";
+
+export const bleManager = new BleManager();
 export const METRO_CHAT_SERVICE_UUID = "12345678-1234-1234-1234-1234567890ab";
 
 export interface DiscoveredPeer {

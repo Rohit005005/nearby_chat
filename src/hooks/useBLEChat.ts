@@ -1,12 +1,11 @@
-// useBLEChat.ts
 import { useState, useEffect } from "react";
 import { BleManager } from "react-native-ble-plx";
 import { gcm } from "@noble/ciphers/aes.js";
-import { randomBytes } from "@noble/ciphers/webcrypto.js";
 import { Buffer } from "buffer";
-import { localDb } from "./db/client";
-import { localMessages } from "./db/schema";
+import { localDb } from "../db/client";
+import { localMessages } from "../db/schema";
 import * as Crypto from "expo-crypto";
+import { randomBytes } from "@noble/ciphers/utils.js";
 
 // The UUIDs we defined earlier
 const METRO_CHAT_SERVICE_UUID = "12345678-1234-1234-1234-1234567890ab";
