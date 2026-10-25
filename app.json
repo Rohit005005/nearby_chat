@@ -11,10 +11,14 @@
         "react-native-ble-plx",
         {
           "isBackgroundEnabled": true,
-          "modes": ["peripheral", "central"],
+          "modes": [
+            "peripheral",
+            "central"
+          ],
           "bluetoothAlwaysPermission": "MetroChat needs Bluetooth to find other passengers near you even when the app is minimized."
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "android": {
       "adaptiveIcon": {
@@ -36,12 +40,20 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["bluetooth-central", "bluetooth-peripheral"]
+        "UIBackgroundModes": [
+          "bluetooth-central",
+          "bluetooth-peripheral"
+        ]
       },
       "bundleIdentifier": "com.rohit.metrochat"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b644b8d7-ec9c-4f38-84ab-cec1166fd4aa"
+      }
     }
   }
 }
