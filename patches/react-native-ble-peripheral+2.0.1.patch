@@ -1,7 +1,24 @@
 diff --git a/node_modules/react-native-ble-peripheral/android/build.gradle b/node_modules/react-native-ble-peripheral/android/build.gradle
-index 9b5638c..9c4fbc8 100644
+index 9b5638c..29ac2d7 100644
 --- a/node_modules/react-native-ble-peripheral/android/build.gradle
 +++ b/node_modules/react-native-ble-peripheral/android/build.gradle
+@@ -1,12 +1,12 @@
+ apply plugin: "com.android.library"
+ 
+ android {
+-    compileSdkVersion 23
+-    buildToolsVersion "23.0.3"
++    compileSdkVersion 36
++    buildToolsVersion "36.0.0"
+ 
+     defaultConfig {
+-        minSdkVersion 23
+-        targetSdkVersion 23
++        minSdkVersion 24
++        targetSdkVersion 36
+         versionCode 1
+         versionName "1.0"
+         ndk {
 @@ -15,8 +15,6 @@ android {
      }
  }
